@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Register - QuizMaster</title>
+    <link rel="stylesheet" href="../../Assets/CSS/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .auth-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+        }
+
+        .auth-box {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .auth-header h2 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: none;
+            background: var(--background-color);
+            border-radius: 10px;
+            box-shadow: inset 3px 3px 5px var(--shadow-color),
+                        inset -3px -3px 5px rgba(255, 255, 255, 0.8);
+        }
+
+        .form-group input:focus {
+            outline: none;
+            box-shadow: inset 4px 4px 6px var(--shadow-color),
+                        inset -4px -4px 6px rgba(255, 255, 255, 0.8);
+        }
+
+        .auth-button {
+            width: 100%;
+            padding: 1rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .auth-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(108, 99, 255, 0.3);
+        }
+
+        .auth-links {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        .auth-links a {
+            color: var(--primary-color);
+            text-decoration: none;
+            margin: 0 0.5rem;
+            cursor: pointer;
+        }
+
+        .auth-links a:hover {
+            text-decoration: underline;
+        }
+
+        .auth-social {
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .auth-social-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        .social-button {
+            padding: 0.8rem;
+            border: none;
+            border-radius: 10px;
+            background: white;
+            box-shadow: 5px 5px 10px var(--shadow-color),
+                       -5px -5px 10px rgba(255, 255, 255, 0.8);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .social-button:hover {
+            transform: translateY(-2px);
+        }
+
+        .social-button i {
+            font-size: 1.2rem;
+        }
+
+        .fa-google { color: #DB4437; }
+        .fa-facebook { color: #4267B2; }
+        .fa-twitter { color: #1DA1F2; }
+
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--background-color);
+        }
+
+        .auth-tab {
+            flex: 1;
+            text-align: center;
+            padding: 1rem;
+            cursor: pointer;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+
+        .auth-tab.active {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+            margin-bottom: -2px;
+        }
+
+        .auth-form {
+            display: none;
+        }
+
+        .auth-form.active {
+            display: block;
+        }
+
+        .password-strength {
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--text-color);
+        }
+
+        .strength-meter {
+            height: 4px;
+            background: var(--background-color);
+            margin-top: 0.25rem;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .strength-meter div {
+            height: 100%;
+            width: 0;
+            transition: all 0.3s ease;
+        }
+
+        .weak { background: #ff4d4d; }
+        .medium { background: #ffd700; }
+        .strong { background: #00cc00; }
+
+        .error-message {
+            color: #ff4d4d;
+            font-size: 0.8rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-box">
+            <a href="../../index.html" class="back-home">
+                <i class="fas fa-arrow-left"></i>
+                Back to Home
+            </a>
+            <div class="auth-tabs">
+                <div class="auth-tab active" data-tab="login">Login</div>
+                <div class="auth-tab" data-tab="register">Register</div>
+            </div>
+
+            <form id="loginForm" class="auth-form active">
+                <div class="auth-header">
+                    <h2>Welcome Back</h2>
+                    <p>Sign in to continue to QuizMaster</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" name="email" required placeholder="Enter your email">
+                    <div class="error-message"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" name="password" required placeholder="Enter your password">
+                    <div class="error-message"></div>
+                </div>
+
+                <button type="submit" class="auth-button">Sign In</button>
+
+                <div class="auth-links">
+                    <a href="#forgot-password">Forgot Password?</a>
+                </div>
+
+                <div class="auth-social">
+                    <p>Or continue with</p>
+                    <div class="auth-social-buttons">
+                        <button type="button" class="social-button">
+                            <i class="fab fa-google"></i>
+                        </button>
+                        <button type="button" class="social-button">
+                            <i class="fab fa-facebook"></i>
+                        </button>
+                        <button type="button" class="social-button">
+                            <i class="fab fa-twitter"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+            <form id="registerForm" class="auth-form">
+                <div class="auth-header">
+                    <h2>Create Account</h2>
+                    <p>Join QuizMaster today</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="registerName">Full Name</label>
+                    <input type="text" id="registerName" name="name" required placeholder="Enter your full name">
+                    <div class="error-message"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="registerEmail">Email</label>
+                    <input type="email" id="registerEmail" name="email" required placeholder="Enter your email">
+                    <div class="error-message"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="registerPassword">Password</label>
+                    <input type="password" id="registerPassword" name="password" required placeholder="Create a password">
+                    <div class="password-strength">
+                        <span>Password Strength:</span>
+                        <div class="strength-meter">
+                            <div></div>
+                        </div>
+                    </div>
+                    <div class="error-message"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Confirm your password">
+                    <div class="error-message"></div>
+                </div>
+
+                <button type="submit" class="auth-button">Create Account</button>
+
+                <div class="auth-social">
+                    <p>Or register with</p>
+                    <div class="auth-social-buttons">
+                        <button type="button" class="social-button">
+                            <i class="fab fa-google"></i>
+                        </button>
+                        <button type="button" class="social-button">
+                            <i class="fab fa-facebook"></i>
+                        </button>
+                        <button type="button" class="social-button">
+                            <i class="fab fa-twitter"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="../../Assets/JS/main.js"></script>
+    <script>
+        // Tab switching functionality
+        const tabs = document.querySelectorAll('.auth-tab');
+        const forms = document.querySelectorAll('.auth-form');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const targetForm = tab.dataset.tab;
+
+                tabs.forEach(t => t.classList.remove('active'));
+                forms.forEach(f => f.classList.remove('active'));
+
+                tab.classList.add('active');
+                document.getElementById(`${targetForm}Form`).classList.add('active');
+            });
+        });
+
+        // Check URL hash for direct navigation to register form
+        if (window.location.hash === '#register') {
+            document.querySelector('[data-tab="register"]').click();
+        }
+
+        // Password strength meter
+        function checkPasswordStrength(password) {
+            const meter = document.querySelector('#registerForm .strength-meter div');
+            let strength = 0;
+
+            if (password.length >= 8) strength++;
+            if (password.match(/[a-z]/) && password.match(/[A-Z]/)) strength++;
+            if (password.match(/\d/)) strength++;
+            if (password.match(/[^a-zA-Z\d]/)) strength++;
+
+            meter.className = '';
+            if (strength >= 4) {
+                meter.classList.add('strong');
+                meter.style.width = '100%';
+            } else if (strength >= 2) {
+                meter.classList.add('medium');
+                meter.style.width = '66%';
+            } else if (strength >= 1) {
+                meter.classList.add('weak');
+                meter.style.width = '33%';
+            } else {
+                meter.style.width = '0';
+            }
+
+            return strength;
+        }
+
+        document.getElementById('registerPassword').addEventListener('input', (e) => {
+            checkPasswordStrength(e.target.value);
+        });
+
+        // Form validation
+        function showError(input, message) {
+            const errorDiv = input.nextElementSibling;
+            if (errorDiv && errorDiv.classList.contains('error-message')) {
+                errorDiv.textContent = message;
+                errorDiv.style.display = 'block';
+            }
+        }
+
+        function clearError(input) {
+            const errorDiv = input.nextElementSibling;
+            if (errorDiv && errorDiv.classList.contains('error-message')) {
+                errorDiv.style.display = 'none';
+            }
+        }
+
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail');
+            const password = document.getElementById('loginPassword');
+            let isValid = true;
+
+            if (!email.value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+                showError(email, 'Please enter a valid email address');
+                isValid = false;
+            } else {
+                clearError(email);
+            }
+
+            if (password.value.length < 8) {
+                showError(password, 'Password must be at least 8 characters long');
+                isValid = false;
+            } else {
+                clearError(password);
+            }
+
+            if (isValid) {
+                // Placeholder for future backend integration
+                console.log('Login form submitted successfully');
+                alert('Login functionality will be integrated with backend soon!');
+            }
+        });
+
+        document.getElementById('registerForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('registerName');
+            const email = document.getElementById('registerEmail');
+            const password = document.getElementById('registerPassword');
+            const confirmPassword = document.getElementById('confirmPassword');
+            let isValid = true;
+
+            if (name.value.length < 2) {
+                showError(name, 'Name must be at least 2 characters long');
+                isValid = false;
+            } else {
+                clearError(name);
+            }
+
+            if (!email.value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+                showError(email, 'Please enter a valid email address');
+                isValid = false;
+            } else {
+                clearError(email);
+            }
+
+            if (checkPasswordStrength(password.value) < 2) {
+                showError(password, 'Password is too weak');
+                isValid = false;
+            } else {
+                clearError(password);
+            }
+
+            if (password.value !== confirmPassword.value) {
+                showError(confirmPassword, 'Passwords do not match');
+                isValid = false;
+            } else {
+                clearError(confirmPassword);
+            }
+
+            if (isValid) {
+                // Placeholder for future backend integration
+                console.log('Registration form submitted successfully');
+                alert('Registration functionality will be integrated with backend soon!');
+            }
+        });
+    </script>
+</body>
+</html>
