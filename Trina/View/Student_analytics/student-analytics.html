@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Analytics</title>
+    <link rel="stylesheet" href="../../Css/dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="logo">
+                <h2>Student Analytics</h2>
+            </div>
+            <nav class="nav-menu">
+                <a href="#" class="nav-item active" data-section="skill-matrix">Skill Matrix</a>
+                <a href="#" class="nav-item" data-section="weakness-report">Weakness Report</a>
+                <a href="#" class="nav-item" data-section="progress-tracking">Progress Tracking</a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <section id="skill-matrix" class="dashboard-section active">
+                <h2>Skill Matrix</h2>
+                <div class="filters">
+                    <select id="subjectSelect" required>
+                        <option value="">Select Subject</option>
+                        <option value="math">Mathematics</option>
+                        <option value="science">Science</option>
+                        <option value="english">English</option>
+                    </select>
+                    <select id="topicSelect" required>
+                        <option value="">Select Topic</option>
+                    </select>
+                </div>
+                <div class="matrix-container">
+                    <canvas id="skillMatrixChart"></canvas>
+                </div>
+            </section>
+
+            <section id="weakness-report" class="dashboard-section">
+                <h2>Weakness Report</h2>
+                <div class="report-filters">
+                    <input type="date" id="startDate" required>
+                    <input type="date" id="endDate" required>
+                    <button id="generateReport" class="btn-primary">Generate Report</button>
+                </div>
+                <div class="weakness-container">
+                    <div class="weakness-card">
+                        <h3>Topic: Algebra</h3>
+                        <p>Success Rate: 45%</p>
+                        <div class="recommended-practice">
+                            <h4>Recommended Practice:</h4>
+                            <ul>
+                                <li>Linear Equations Quiz</li>
+                                <li>Quadratic Expressions Test</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="weakness-card">
+                        <h3>Topic: Geometry</h3>
+                        <p>Success Rate: 55%</p>
+                        <div class="recommended-practice">
+                            <h4>Recommended Practice:</h4>
+                            <ul>
+                                <li>Triangle Properties Quiz</li>
+                                <li>Circle Theorems Test</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="progress-tracking" class="dashboard-section">
+                <h2>Progress Tracking</h2>
+                <div class="tracking-filters">
+                    <select id="studentSelect" required>
+                        <option value="">Select Student</option>
+                        <option value="student1">John Doe</option>
+                        <option value="student2">Jane Smith</option>
+                    </select>
+                    <select id="timeRange" required>
+                        <option value="week">Last Week</option>
+                        <option value="month">Last Month</option>
+                        <option value="quarter">Last Quarter</option>
+                    </select>
+                </div>
+                <div class="progress-container">
+                    <canvas id="progressChart"></canvas>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="../../Js/dashboard.js"></script>
+</body>
+</html>

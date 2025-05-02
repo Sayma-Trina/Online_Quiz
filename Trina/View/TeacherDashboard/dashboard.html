@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Dashboard</title>
+    <link rel="stylesheet" href="../../Css/dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="logo">
+                <h2>Teacher Dashboard</h2>
+            </div>
+            <nav class="nav-menu">
+                <a href="#" class="nav-item active" data-section="overview">Class Overview</a>
+                <a href="#" class="nav-item" data-section="alerts">Intervention Alerts</a>
+                <a href="#" class="nav-item" data-section="heatmap">Heat Maps</a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <section id="overview" class="dashboard-section active">
+                <h2>Class Overview</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>Active Tests</h3>
+                        <p class="stat-number">3</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Students Online</h3>
+                        <p class="stat-number">24</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Average Score</h3>
+                        <p class="stat-number">78%</p>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="progressChart"></canvas>
+                </div>
+            </section>
+
+            <section id="alerts" class="dashboard-section">
+                <h2>Intervention Alerts</h2>
+                <div class="alerts-container">
+                    <div class="alert-card critical">
+                        <div class="student-info">
+                            <h3>John Doe</h3>
+                            <p>Score: 45% (Below threshold)</p>
+                        </div>
+                        <div class="alert-actions">
+                            <button class="btn-contact">Contact</button>
+                            <button class="btn-view">View Details</button>
+                        </div>
+                    </div>
+                    <div class="alert-card warning">
+                        <div class="student-info">
+                            <h3>Jane Smith</h3>
+                            <p>Inactive for 15 minutes</p>
+                        </div>
+                        <div class="alert-actions">
+                            <button class="btn-contact">Contact</button>
+                            <button class="btn-view">View Details</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="heatmap" class="dashboard-section">
+                <h2>Question Difficulty Heat Map</h2>
+                <div class="filters">
+                    <select id="testSelect">
+                        <option value="test1">Test 1</option>
+                        <option value="test2">Test 2</option>
+                    </select>
+                </div>
+                <div class="heatmap-container">
+                    <canvas id="difficultyHeatmap"></canvas>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="../../Js/dashboard.js"></script>
+</body>
+</html>
