@@ -1,39 +1,79 @@
 <?php
-require '../config.php';
-
 session_start();
+require_once __DIR__ . '/../config.php';
+require_once __DIR__ . '/QuizController.php';
 
-if (!isset($_SESSION['logged_in']) || !$_SESSION['logged_in']) {
-    http_response_code(403);
-    exit('Unauthorized access');
-}
+header('Content-Type: application/json');
 
 try {
-    // Validate and process answers
-    $rawAnswers = json_decode($_POST['answers'], true);
+    if (!$pdo) {
+        throw new PDOException('Database connection failed');
+    }
+
+    $data = json_decode(file_get_contents('php://input'), true);
+    if ($data === null) {
+        throw new Exception('Invalid JSON input');
+    }
+    $answers = $data['answers'] ?? [];
+    if (!is_array($answers)) {
+        throw new Exception('Invalid answer format');
+    }
+
+    $quizController = new QuizController($pdo);
+    $questions = $quizController->getQuizDataWithAnswers();
+
     $score = 0;
+    $correctAnswers = [];
+    $userAnswers = [];
 
-    // Get correct answers
-    $stmt = $pdo->query('SELECT q.id, o.id AS option_id FROM quizzes q JOIN quiz_options o ON q.id = o.quiz_id WHERE o.is_correct = 1');
-    $correctAnswers = $stmt->fetchAll(PDO::FETCH_GROUP | PDO::FETCH_COLUMN);
+    foreach ($questions as $question) {
+        // Store correct answers with both ID and text
+        $correctOptions = array_filter($question->options, fn($opt) => $opt->is_correct);
+        $correctAnswers[$question->id] = array_map(fn($opt) => [
+            'option_id' => $opt->id,
+            'option_text' => $opt->option_text
+        ], $correctOptions);
 
-    // Calculate score
-    foreach ($rawAnswers as $questionId => $selectedOptionId) {
-        if (isset($correctAnswers[$questionId]) && in_array($selectedOptionId, $correctAnswers[$questionId])) {
+        // Process user answers
+        $userAnswers[$question->id] = $answers[$question->id] ?? [];
+        if (!is_array($userAnswers[$question->id])) {
+            $userAnswers[$question->id] = [$userAnswers[$question->id]];
+        }
+
+        // Calculate score
+        $correctIds = array_column($correctOptions, 'id');
+        if (empty(array_diff($correctIds, $userAnswers[$question->id])) 
+            && empty(array_diff($userAnswers[$question->id], $correctIds))) {
             $score++;
         }
     }
 
-    // Store results
-    $resultStmt = $pdo->prepare('INSERT INTO quiz_results (user_id, score) VALUES (?, ?)');
-    $resultStmt->execute([$_SESSION['user_id'], $score]);
+    // Store session data for review
+    $_SESSION['correct_answers'] = $correctAnswers;
+    $_SESSION['user_answers'] = $userAnswers;
 
-    echo json_encode(['score' => $score]);
+    $_SESSION['quiz_result'] = [
+        'score' => $score,
+        'total' => count($questions),
+        'timestamp' => time()
+    ];
+
+    // Save result to database
+    if (!Quiz::saveResult($pdo, $_SESSION['user_id'], $score)) {
+        throw new Exception('Failed to save quiz result');
+    }
+
+    echo json_encode(['success' => true]);
+    exit;
 
 } catch (PDOException $e) {
-    http_response_code(500);
-    echo json_encode(['error' => 'Database error: ' . $e->getMessage()]);
+    error_log('Database error: ' . $e->getMessage());
+    http_response_code(503);
+    echo json_encode(['error' => 'Service unavailable']);
+    exit;
 } catch (Exception $e) {
-    http_response_code(400);
-    echo json_encode(['error' => 'Invalid request: ' . $e->getMessage()]);
+    http_response_code(500);
+    echo json_encode(['error' => $e->getMessage()]);
+    exit;
 }
+?>

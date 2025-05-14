@@ -6,15 +6,10 @@ if (!isset($_SESSION['logged_in']) || !$_SESSION['logged_in']) {
     exit;
 }
 
-$score = isset($_GET['score']) ? (int)$_GET['score'] : 0;
-
-// Get total questions from database
-try {
-    $totalStmt = $pdo->query('SELECT COUNT(*) FROM quizzes');
-    $totalQuestions = $totalStmt->fetchColumn();
-} catch (PDOException $e) {
-    $totalQuestions = 'N/A';
-}
+session_start();
+$result = $_SESSION['quiz_result'] ?? ['score' => 0, 'total' => 0];
+$score = $result['score'];
+$totalQuestions = $result['total'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,6 +23,7 @@ try {
 <body>
     <div class="result-container">
         <h1>Quiz Results</h1>
+<p>Hello, <?= htmlspecialchars($_SESSION['username'] ?? 'User') ?>!</p>
         <div class="score-card">
             <div class="score-circle">
                 <span class="score"><?= $score ?></span>
@@ -35,7 +31,31 @@ try {
             </div>
             <p class="score-text">Correct Answers</p>
         </div>
-        <a href="../../index.html" class="home-button">Return to Home</a>
+        <div class="answer-review">
+        <h2>Answer Review</h2>
+        <?php foreach ($_SESSION['correct_answers'] as $questionId => $correct): ?>
+        <div class="question-box">
+            <h3>Question #<?= $questionId ?></h3>
+            <?php 
+                $userSelections = $_SESSION['user_answers'][$questionId] ?? [];
+                $correctOptions = array_column($correct, 'option_text');
+            ?>
+            <div class="user-answer <?= empty(array_diff($userSelections, array_column($correct, 'option_id'))) ? 'correct' : 'incorrect' ?>">
+                <span>Your answer:</span>
+                <?php foreach ($userSelections as $optionId): ?>
+                    <div><?= htmlspecialchars($correct[$optionId]['option_text'] ?? 'Unknown option') ?></div>
+                <?php endforeach; ?>
+            </div>
+            <div class="correct-answer">
+                <span>Correct answer:</span>
+                <?php foreach ($correctOptions as $text): ?>
+                    <div><?= htmlspecialchars($text) ?></div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+        <?php endforeach; ?>
+    </div>
+    <a href="../../index.html" class="home-button">Return to Home</a>
     </div>
 </body>
 </html>
