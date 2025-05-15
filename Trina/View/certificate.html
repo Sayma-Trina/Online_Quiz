@@ -4,146 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz Certificate - QuizMaster</title>
-    <link rel="stylesheet" href="/Css/style.css">
+    <link rel="stylesheet" href="../Asset/Css/style.css">
+    <link rel="stylesheet" href="../Asset/Css/certificate.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        .certificate-container {
-            max-width: 800px;
-            margin: 2rem auto;
-            padding: 2rem;
-        }
-
-        .certificate {
-            background: white;
-            padding: 3rem;
-            border-radius: 20px;
-            box-shadow: 10px 10px 20px var(--shadow-color),
-                       -10px -10px 20px rgba(255, 255, 255, 0.5);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .certificate::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.1), transparent);
-            pointer-events: none;
-        }
-
-        .certificate-header {
-            margin-bottom: 2rem;
-        }
-
-        .certificate-title {
-            font-size: 2.5rem;
-            color: var(--primary-color);
-            margin-bottom: 0.5rem;
-            font-weight: 700;
-        }
-
-        .certificate-subtitle {
-            color: var(--text-color);
-            font-size: 1.2rem;
-            opacity: 0.8;
-        }
-
-        .certificate-content {
-            margin: 3rem 0;
-            position: relative;
-        }
-
-        .recipient-name {
-            font-size: 2rem;
-            color: var(--text-color);
-            margin-bottom: 1rem;
-            font-weight: 600;
-        }
-
-        .certificate-text {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            color: var(--text-color);
-            margin-bottom: 2rem;
-        }
-
-        .certificate-score {
-            font-size: 1.5rem;
-            color: var(--primary-color);
-            margin: 1rem 0;
-            font-weight: 600;
-        }
-
-        .certificate-date {
-            font-size: 1.1rem;
-            color: var(--text-color);
-            margin-top: 2rem;
-        }
-
-        .certificate-id {
-            font-size: 0.9rem;
-            color: var(--text-color);
-            opacity: 0.7;
-            margin-top: 1rem;
-        }
-
-        .certificate-actions {
-            margin-top: 2rem;
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-        }
-
-        .certificate-button {
-            padding: 0.8rem 1.5rem;
-            border: none;
-            border-radius: 10px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .download-btn {
-            background: var(--primary-color);
-            color: white;
-        }
-
-        .share-btn {
-            background: white;
-            color: var(--primary-color);
-            box-shadow: 5px 5px 10px var(--shadow-color),
-                       -5px -5px 10px rgba(255, 255, 255, 0.8);
-        }
-
-        .certificate-button:hover {
-            transform: translateY(-2px);
-        }
-
-        @media print {
-            .certificate-actions {
-                display: none;
-            }
-
-            .certificate {
-                box-shadow: none;
-                margin: 0;
-                padding: 2rem;
-            }
-
-            .certificate-container {
-                margin: 0;
-                padding: 0;
-            }
-        }
-    </style>
+  
 </head>
 <body>
     <div class="certificate-container">
@@ -175,46 +40,7 @@
         </div>
     </div>
 
-    <script src="/Js/main.js"></script>
-    <script>
-        // Function to generate a unique certificate ID
-        function generateCertificateId() {
-            const timestamp = Date.now().toString(36);
-            const random = Math.random().toString(36).substr(2, 5);
-            return `QM-${timestamp}-${random}`.toUpperCase();
-        }
-
-        // Function to download certificate as PDF
-        function downloadCertificate() {
-            window.print();
-        }
-
-        // Function to share certificate
-        function shareCertificate() {
-            if (navigator.share) {
-                navigator.share({
-                    title: 'My QuizMaster Certificate',
-                    text: `I completed a quiz on QuizMaster! Check out my certificate!`,
-                    url: window.location.href
-                }).catch(console.error);
-            } else {
-                alert('Sharing is not supported on this browser');
-            }
-        }
-
-        // Function to update certificate with actual data
-        function updateCertificate(data) {
-            document.getElementById('recipientName').textContent = data.name;
-            document.getElementById('quizScore').textContent = `Score: ${data.score}%`;
-            document.getElementById('completionDate').textContent = `Completed on: ${new Date().toLocaleDateString()}`;
-            document.getElementById('certificateId').textContent = `Certificate ID: ${generateCertificateId()}`;
-        }
-
-        // Example usage (replace with actual data)
-        updateCertificate({
-            name: 'trina',
-            score: 100
-        });
-    </script>
+    <script src="../Assets/JS/main.js"></script>
+    <script src="../Assets/JS/certificate.js" ></script>
 </body>
 </html>
