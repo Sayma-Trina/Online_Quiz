@@ -1,0 +1,103 @@
+<?php include_once("../Controller/loginController.php"); 
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
+}
+
+
+
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz - QuizMaster</title>
+    <link rel="stylesheet" href="../Asset/Css/style.css">
+    <link rel="stylesheet" href="../Asset/Css/quiz.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+   
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <a href="../index.html">QuizMaster</a>
+        </div>
+        <div class="nav-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
+        <div class="nav-menu">
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="#">My Quizzes</a></li>
+                <li>
+                    <div class="notification-bell">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-count">2</span>
+                    </div>
+                </li>
+                <li>
+                    <a href="logout.php" class="logout-button">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="quiz-container">
+        <div class="quiz-header">
+            <div class="quiz-progress">
+                <span>Question 4 of 10</span>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+            </div>
+            <div class="timer">
+                <i class="fas fa-clock"></i>
+                <span id="time-remaining">14:32</span>
+            </div>
+        </div>
+
+        <div class="quiz-card">
+            <h2 class="question">What is the capital city of France?</h2>
+            <ul class="options-list">
+                <li class="option-item">London</li>
+                <li class="option-item selected">Paris</li>
+                <li class="option-item">Berlin</li>
+                <li class="option-item">Madrid</li>
+            </ul>
+        </div>
+
+        <div class="quiz-navigation">
+            <button class="nav-button prev-button">
+                <i class="fas fa-arrow-left"></i> Previous
+            </button>
+            <button class="nav-button next-button">
+                Next <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="quiz-sidebar">
+        <div class="question-dots">
+            <div class="dot answered"></div>
+            <div class="dot answered"></div>
+            <div class="dot answered"></div>
+            <div class="dot active"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </div>
+
+    <script src="../Asset/Js/main.js"></script>
+    <script src="../Asset/Js/quiz.js"> </script>
+</body>
+</html>
