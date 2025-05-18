@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
 
                
-                header('Location: ../Pages/quiz.php');
+                header('Location: ../main part/student.php');
                 exit;
             } else {
                 $errors['general'] = 'Invalid credentials';
