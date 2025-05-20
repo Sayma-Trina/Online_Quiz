@@ -1,0 +1,56 @@
+<?php include_once("../Controller/loginController.php"); 
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
+}
+
+
+
+?>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found | QuizMaster</title>
+    <link rel="stylesheet" href="../Asset/Css/style.css">
+    <link rel="stylesheet" href="../Asset/Css/error404.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+</head>
+<body>
+     <nav class="navbar">
+    <div class="navbar-container">
+        <ul class="navbar-menu">
+            <li>
+                <a href="logout.php" class="logout-button">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+    <div class="error-container">
+        <div class="error-content">
+            <div class="error-icon">
+                <i class="fas fa-question-circle"></i>
+            </div>
+            <h1 class="error-title">404</h1>
+            <h2 class="error-message">Oops! Page Not Found</h2>
+            <p class="error-description">
+                The page you're looking for might have been removed, had its name changed,
+                or is temporarily unavailable.
+            </p>
+            <a href="../index.html" class="home-button">
+                <i class="fas fa-home"></i> Back to Home
+            </a>
+        </div>
+    </div>
+
+    <script src="../Assets/Js/main.js"></script>
+</body>
+</html>
