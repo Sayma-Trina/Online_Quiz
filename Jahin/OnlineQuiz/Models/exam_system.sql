@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Nov 05, 2021 at 07:05 PM
--- Server version: 10.4.20-MariaDB
--- PHP Version: 7.3.29
+-- Host: localhost
+-- Generation Time: May 21, 2025 at 02:36 PM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -32,7 +32,7 @@ CREATE TABLE `online_exam_enroll` (
   `user_id` int(11) NOT NULL,
   `exam_id` int(11) NOT NULL,
   `attendance_status` enum('Absent','Present') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `online_exam_enroll`
@@ -42,7 +42,13 @@ INSERT INTO `online_exam_enroll` (`id`, `user_id`, `exam_id`, `attendance_status
 (18, 4, 1, 'Absent'),
 (19, 4, 3, 'Absent'),
 (20, 4, 3, 'Absent'),
-(21, 4, 7, 'Absent');
+(21, 4, 7, 'Absent'),
+(22, 4, 4, 'Absent'),
+(23, 4, 4, 'Absent'),
+(24, 7, 1, 'Absent'),
+(25, 7, 1, 'Absent'),
+(26, 7, 4, 'Absent'),
+(27, 7, 4, 'Absent');
 
 -- --------------------------------------------------------
 
@@ -62,7 +68,7 @@ CREATE TABLE `online_exam_exams` (
   `created_on` datetime NOT NULL,
   `status` enum('Pending','Created','Started','Completed') NOT NULL,
   `exam_code` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `online_exam_exams`
@@ -86,7 +92,7 @@ CREATE TABLE `online_exam_option` (
   `question_id` int(11) NOT NULL,
   `option` int(2) NOT NULL,
   `title` varchar(250) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `online_exam_option`
@@ -153,14 +159,18 @@ CREATE TABLE `online_exam_process` (
   `userid` int(11) NOT NULL,
   `examid` int(11) NOT NULL,
   `start_time` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `online_exam_process`
 --
 
 INSERT INTO `online_exam_process` (`id`, `userid`, `examid`, `start_time`) VALUES
-(32, 4, 1, '2021-11-05 17:51:48');
+(32, 4, 1, '2021-11-05 17:51:48'),
+(33, 4, 4, '2025-05-21 11:49:55'),
+(34, 4, 3, '2025-05-21 11:50:10'),
+(35, 7, 1, '2025-05-21 12:10:09'),
+(36, 7, 4, '2025-05-21 12:10:20');
 
 -- --------------------------------------------------------
 
@@ -173,7 +183,7 @@ CREATE TABLE `online_exam_question` (
   `exam_id` int(11) NOT NULL,
   `question` text NOT NULL,
   `answer` enum('1','2','3','4') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `online_exam_question`
@@ -206,7 +216,7 @@ CREATE TABLE `online_exam_question_answer` (
   `question_id` int(11) NOT NULL,
   `user_answer_option` enum('0','1','2','3','4') NOT NULL,
   `marks` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `online_exam_question_answer`
@@ -236,18 +246,15 @@ CREATE TABLE `online_exam_user` (
   `address` text NOT NULL,
   `created` datetime NOT NULL DEFAULT current_timestamp(),
   `role` enum('admin','user') DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `online_exam_user`
 --
 
 INSERT INTO `online_exam_user` (`id`, `first_name`, `last_name`, `gender`, `email`, `password`, `mobile`, `address`, `created`, `role`) VALUES
-(1, 'William', 'Smith', 'Male', 'admin@webdamn.com', '202cb962ac59075b964b07152d234b70', '1234567890', '', '2020-11-28 22:45:58', 'admin'),
-(2, 'jhon', 'smith', 'Male', 'user@webdamn.com', '202cb962ac59075b964b07152d234b70', '123456789', '', '2020-11-28 22:45:58', 'user'),
-(3, 'Jhon', 'Eyan', 'Male', 'user1@test.com', '202cb962ac59075b964b07152d234b70', '123456789', '', '2020-11-28 22:45:58', 'user'),
-(4, 'Dunkun', 'damian', 'Male', 'user2@test.com', '202cb962ac59075b964b07152d234b70', '123456789', '', '2020-11-28 22:45:58', 'user'),
-(6, 'sfas', 'khan', 'Male', 'abcd@gmail.com', '202cb962ac59075b964b07152d234b70', '1234567890', 'dsdgsd', '2021-11-04 20:42:14', 'user');
+(7, 'jahin', 'utsho', 'Male', 'jutsho2@gmail.com', '$2y$10$TTupns7LYb/wkEy.hWR2GeSfHL6SAeCu2AWhGAUI0Y5Jw5kUaeATy', '123456', 'aaaaa', '2025-05-21 12:06:57', 'user'),
+(8, 'jahin', 'abc', 'Male', 'admin@gmail.com', '$2y$10$fO8jSbCUVGh8feEQwp0Av./ic3f9nEu.WwFtfjMQVh.PEn8tSIswW', '11111', 'aaaaa', '2025-05-21 13:17:02', 'admin');
 
 --
 -- Indexes for dumped tables
@@ -303,7 +310,7 @@ ALTER TABLE `online_exam_user`
 -- AUTO_INCREMENT for table `online_exam_enroll`
 --
 ALTER TABLE `online_exam_enroll`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `online_exam_exams`
@@ -321,7 +328,7 @@ ALTER TABLE `online_exam_option`
 -- AUTO_INCREMENT for table `online_exam_process`
 --
 ALTER TABLE `online_exam_process`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `online_exam_question`
@@ -339,7 +346,7 @@ ALTER TABLE `online_exam_question_answer`
 -- AUTO_INCREMENT for table `online_exam_user`
 --
 ALTER TABLE `online_exam_user`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

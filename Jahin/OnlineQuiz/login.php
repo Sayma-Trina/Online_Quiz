@@ -35,23 +35,24 @@ if(!empty($_POST["login"]) && !empty($_POST["email"]) && !empty($_POST["password
 include('inc/header.php');
 ?>
 <title>Online Exam System with PHP & MySQL</title>
-    <link rel="stylesheet" href="css/auth.css">
 <?php include('inc/container.php');?>
-
-	<div class="auth-container">
-		<h2>Login</h2>			
-                         
-		
-		
+<div > 
+	<div >
+		<h2>Online Exam System</h2>			
+        <div class="login-panel">                    
+		<div >
+			<div>Log In</div>                        
+		</div> 
+		<div  >
 			<?php if ($loginMessage != '') { ?>
 				<div id="login-alert"><?php echo $loginMessage; ?></div>                            
 			<?php } ?>
-			<form id="loginform" class="auth-form" role="form" method="POST" action="">                                    
-				<div class="auth-container">
+			<form id="loginform"  role="form" method="POST" action="">                                    
+				<div >
 					<span><i class="glyphicon glyphicon-user"></i></span>
 					<input type="text"  id="email" name="email" value="<?php if(!empty($_POST["email"])) { echo $_POST["email"]; } ?>" placeholder="email" style="background:white;" required>                                        
 				</div>                                
-				<div class="auth-container">
+				<div >
 					<span ><i class="glyphicon glyphicon-lock"></i></span>
 					<input type="password"  id="password" name="password" value="<?php if(!empty($_POST["password"])) { echo $_POST["password"]; } ?>" placeholder="password" required>
 				</div>	
@@ -64,19 +65,17 @@ include('inc/header.php');
 				  <input type="radio" name="loginType" value="user">User
 				</label>
 				
-				<div class="auth-container">                               
-					<div class="auth-container">
+				<div >                               
+					<div >
 					  <input type="submit" name="login" value="Login" >                          
 					</div>                        
-				                      
-				<a href='register.php'>Register</a>					
-				<a href='index.html' class="auth-button">Go Back</a>
-				</div>  
+				</div>                        
+				<a href='register.php'>Register</a>
 			</form>  
 			
 		</div>                     
-	
+	</div>  
 	</div>       
-     
+    </div>        
 		
 <?php include('inc/footer.php');?>
