@@ -1,0 +1,109 @@
+:root {
+    --primary-color: #6c63ff;
+    --text-color: #333;
+    --background-color: #f0f0f0;
+    --shadow-color: #d1d1d1;
+    --gradient-start: #f6f7ff;
+    --gradient-end: #e9ebff;
+}
+
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+    min-height: 100vh;
+}
+
+.login-panel {
+    max-width: 400px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+#loginform {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+#loginform div {
+    position: relative;
+}
+
+#loginform input[type="text"],
+#loginform input[type="password"] {
+    width: 100%;
+    padding: 0.8rem;
+    border: none;
+    background: var(--background-color);
+    border-radius: 10px;
+    box-shadow: inset 3px 3px 5px var(--shadow-color),
+                inset -3px -3px 5px rgba(255, 255, 255, 0.8);
+    font-size: 1rem;
+}
+
+#loginform input[type="text"]:focus,
+#loginform input[type="password"]:focus {
+    outline: none;
+    box-shadow: inset 4px 4px 6px var(--shadow-color),
+                inset -4px -4px 6px rgba(255, 255, 255, 0.8);
+}
+
+#loginform input[type="submit"] {
+    width: 100%;
+    padding: 1rem;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#loginform input[type="submit"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(108, 99, 255, 0.3);
+}
+
+#loginform label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+#loginform a {
+    color: var(--primary-color);
+    text-decoration: none;
+    text-align: center;
+    margin-top: 1rem;
+    display: block;
+}
+
+#loginform a:hover {
+    text-decoration: underline;
+}
+
+#login-alert {
+    background: #ffe6e6;
+    color: #ff4d4d;
+    padding: 1rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+h2 {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 2rem;
+}
+
+.glyphicon {
+    color: var(--primary-color);
+    margin-right: 0.5rem;
+}
