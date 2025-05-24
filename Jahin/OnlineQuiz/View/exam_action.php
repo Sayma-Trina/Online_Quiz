@@ -1,6 +1,6 @@
 <?php
-include_once 'Models/Database.php';
-include_once 'Controllers/Exam.php';
+include_once '../Models/Database.php';
+include_once '../Controllers/Exam.php';
 
 $database = new Database();
 $db = $database->getConnection();

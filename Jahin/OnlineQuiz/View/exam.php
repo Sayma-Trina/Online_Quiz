@@ -1,6 +1,6 @@
 <?php
-include_once 'Models/Database.php';
-include_once 'Controllers/User.php';
+include_once '../Models/Database.php';
+include_once '../Controllers/User.php';
 
 $database = new Database();
 $db = $database->getConnection();
@@ -10,15 +10,15 @@ $user = new User($db);
 if(!$user->loggedIn()) {
 	header("Location: index.php");
 }
-include('inc/header.php');
+include('../inc/header.php');
 ?>
 <title>Online Exam System</title>
-<script src="js/jquery.dataTables.min.js"></script>
-<script src="js/jquery.dataTables.min.js"></script>		
+<script src="../Assets/js/jquery.dataTables.min.js"></script>
+<script src="../Assets/js/jquery.dataTables.min.js"></script>		
 <link rel="stylesheet" href="css/jquery.dataTables.min.css" />
-<script src="js/exam.js"></script>	
-<script src="js/general.js"></script>
-<?php include('inc/container.php');?>
+<script src="../Asset/js/exam.js"></script>	
+<script src="../Asset/js/general.js"></script>
+<?php include('../inc/container.php');?>
 <div >  
 	<h2>Online Exam System</h2>	
 	<?php include('top_menus.php'); ?>	
@@ -149,4 +149,4 @@ include('inc/header.php');
 	</div>
 			
 </div>
- <?php include('inc/footer.php');?>
+ <?php include('../inc/footer.php');?>

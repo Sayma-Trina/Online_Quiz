@@ -1,97 +1,61 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Poppins', sans-serif;
-}
+/* ... existing code ... */
 
-:root {
-    --primary-color: #6c63ff;
-    --text-color: #333;
-    --background-color: #f6f7ff;
-    --shadow-color: rgba(108, 99, 255, 0.1);
-}
-
-body {
-    background: linear-gradient(135deg, #f6f7ff, #e9ebff);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 2rem;
-}
-
-.register-container {
-    background-color: white;
-    padding: 2.5rem;
-    border-radius: 20px;
-    width: 100%;
-    max-width: 500px;
-    box-shadow: 10px 10px 20px var(--shadow-color),
-               -10px -10px 20px rgba(255, 255, 255, 0.5);
-}
-
-.register-container h2 {
-    text-align: center;
-    margin-bottom: 2rem;
-    color: var(--primary-color);
-    font-size: 2rem;
-    font-weight: 600;
+/* New form container styling matching login.css */
+.form-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
 }
 
 .form-group {
-    margin-bottom: 1.5rem;
+    margin-bottom: 20px;
 }
 
-label {
+.form-group label {
     display: block;
-    margin-bottom: 0.5rem;
-    color: var(--text-color);
+    margin-bottom: 8px;
+    color: #333;
     font-weight: 500;
 }
 
-input[type="text"],
-input[type="email"],
-input[type="password"],
-select {
+.form-group input {
     width: 100%;
-    padding: 1rem;
-    border: 2px solid #e1e1e1;
-    border-radius: 10px;
-    background-color: white;
-    transition: all 0.3s ease;
-    font-size: 1rem;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
 }
 
-input[type="text"]:focus,
-input[type="email"]:focus,
-input[type="password"]:focus,
-select:focus {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px var(--shadow-color);
-    outline: none;
+.error-message {
+    color: #f44336;
+    font-size: 14px;
+    display: none;
 }
 
-.submit-btn {
+/* Keep existing button styling from login.css */
+button {
     width: 100%;
-    padding: 1rem;
-    background-color: var(--primary-color);
+    background-color: #2196F3;
     color: white;
+    padding: 12px;
     border: none;
-    border-radius: 10px;
+    border-radius: 4px;
     cursor: pointer;
-    font-size: 1rem;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    margin-top: 1rem;
+    font-size: 16px;
+    transition: background-color 0.3s;
 }
 
-.submit-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(108, 99, 255, 0.3);
+button:hover {
+    background-color: #1976D2;
 }
 
-.submit-btn:active {
-    transform: translateY(0);
+/* Add responsive styles matching login.css */
+@media (max-width: 480px) {
+    .form-container {
+        margin: 20px;
+        padding: 20px;
+    }
 }

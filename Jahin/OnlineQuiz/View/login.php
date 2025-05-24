@@ -1,6 +1,6 @@
 <?php 
-include_once 'Models/Database.php';
-include_once 'Controllers/User.php';
+include_once '../Models/Database.php';
+include_once '../Controllers/User.php';
 
 $database = new Database();
 $db = $database->getConnection();
@@ -35,7 +35,7 @@ if(!empty($_POST["login"]) && !empty($_POST["email"]) && !empty($_POST["password
 include('inc/header.php');
 ?>
 <title>Online Exam System with PHP & MySQL</title>
-<?php include('inc/container.php');?>
+<?php include('../inc/container.php');?>
 <div > 
 	<div >
 		<h2>Online Exam System</h2>			
@@ -78,4 +78,4 @@ include('inc/header.php');
 	</div>       
     </div>        
 		
-<?php include('inc/footer.php');?>
+<?php include('../inc/footer.php');?>

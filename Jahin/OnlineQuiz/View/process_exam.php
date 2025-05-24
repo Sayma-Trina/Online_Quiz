@@ -1,7 +1,7 @@
 <?php
-include_once 'Models/Database.php';
-include_once 'Controllers/User.php';
-include_once 'Controllers/Exam.php';
+include_once '../Models/Database.php';
+include_once '../Controllers/User.php';
+include_once '../Controllers/Exam.php';
 
 $database = new Database();
 $db = $database->getConnection();
@@ -15,26 +15,61 @@ if(!$user->loggedIn()) {
 
 $exam = new Exam($db);
 if(!empty($_GET['exam_id'])) {
-	$exam->exam_id = $_GET['exam_id'];		
+	$exam->exam_id = $_GET['exam_id'];
+	$examDetails = $exam->getExamInfo();	
 }
 
+$exam->examProcessUpdate();
+$examProcessDetails = $exam->getExamProcessDetails();
+
+$remainingMinutes = '';
+$examDateTime = $examProcessDetails['start_time'];
+$duration = $examDetails['duration'] . ' minute';
+$examEndTime = strtotime($examDateTime . '+' . $duration);
+$examEndTime = date('Y-m-d H:i:s', $examEndTime);
+$remainingMinutes = strtotime($examEndTime) - time();
+$currentTime = date("Y-m-d") . ' ' . date("H:i:s", STRTOTIME(date('h:i:sa')));
 include('inc/header.php');
 ?>
 <title>Online Exam System with PHP & MySQL</title>
-<script src="js/jquery.dataTables.min.js"></script>
-<script src="js/jquery.dataTables.min.js"></script>		
-<link rel="stylesheet" href="css/jquery.dataTables.min.css" />
+<script src="../Assets/js/jquery.dataTables.min.js"></script>
+<script src="../Assets/js/dataTables.bootstrap.min.js"></script>		
+<link rel="stylesheet" href="css/dataTables.bootstrap.min.css" />
 <link rel="stylesheet" href="css/TimeCircles.css" />
-<script src="js/TimeCircles.js"></script>
-<script src="js/user_exam.js"></script>	
-<script src="js/general.js"></script>
-<?php include('inc/container.php');?>
+<script src="../Assets/js/TimeCircles.js"></script>
+<script src="../Assets/js/user_exam.js"></script>	
+<script src="../Assets/js/general.js"></script>
+<?php include('../inc/container.php');?>
 <div >  
 	<h2>Online Exam System</h2>	
 	<?php include('top_menus.php'); ?>	
-	<br>		
+	<br>	
+	<div id="processExamId" data-exam_id="<?php echo $examDetails['id']; ?>"> 	
+<?php 
+if($currentTime < $examEndTime) {
+?>	
+	<div >
+		<div>			
+			<div >
+				<div id="single_question_area"></div>
+			</div>
+		</div>
+		<br />
+		<div id="question_navigation_area"></div>
+	</div>
+	<div >
+		<br />
+		<div >
+			<div id="examTimer" data-timer="<?php echo $remainingMinutes; ?>" ></div>
+		</div>
+		<br />
+		<div id="user_details_area"></div>		
+	</div>
+<?php } ?>	
+
 <?php
-$examResult =  $exam->getExamResults();		
+if($currentTime >= $examEndTime) {	
+	$examResult =  $exam->getExamResults();		
 ?>
 	<div >
 		<div >
@@ -63,13 +98,13 @@ $examResult =  $exam->getExamResults();
 						$orignalAnswer = '';
 						$questionResult = '';
 						if($results['marks'] == '0'){
-							$questionResult = '<h4 class="badge badge-dark">Not Attend</h4>';
+							$questionResult = '<h4 >Not Attend</h4>';
 						}
 						if($results['marks'] > '0')	{
-							$questionResult = '<h4 class="badge badge-success">Right</h4>';
+							$questionResult = '<h4 >Right</h4>';
 						}
 						if($results['marks'] < '0')	{
-							$questionResult = '<h4 class="badge badge-danger">Wrong</h4>';
+							$questionResult = '<h4 >Wrong</h4>';
 						}
 						echo '
 						<tr>
@@ -95,8 +130,8 @@ $examResult =  $exam->getExamResults();
 					foreach($marksResult as $marks){
 					?>
 					<tr>
-						<td >Total Marks</td>
-						<td ><?php echo $marks["mark"]; ?></td>
+						<td colspan="8" align="right">Total Marks</td>
+						<td align="right"><?php echo $marks["mark"]; ?></td>
 					</tr>
 					<?php	
 					}
@@ -105,6 +140,8 @@ $examResult =  $exam->getExamResults();
 			</div>
 		</div>
 	</div>
-
+<?php
+}
+?>		
 </div>
- <?php include('inc/footer.php');?>
+ <?php include('../inc/footer.php');?>
