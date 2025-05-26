@@ -1,0 +1,352 @@
+/* Match exam.css styling */
+.admin-container {
+    padding: 25px;
+    background: #f8f9fa;
+    min-height: 100vh;
+}
+
+.welcome-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 25px;
+}
+
+#userListing {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* User-specific enhancements */
+#addUser {
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+}
+
+/* Form Styling */
+#userModal .modal-content {
+    padding: 20px;
+    border-radius: 8px;
+}
+
+#userModal label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #495057;
+}
+
+#userModal input,
+#userModal select,
+#userModal textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    background: #f8f9fa;
+}
+
+#userModal .btn-primary {
+    background: #007bff;
+    padding: 8px 20px;
+    margin-right: 10px;
+}
+
+#userModal .btn-secondary {
+    background: #6c757d;
+}
+
+/* User Details Modal */
+#userDetails .modal-content {
+    padding: 25px;
+}
+
+#userDetails table {
+    width: 100%;
+    margin-top: 15px;
+    border-collapse: collapse;
+}
+
+#userDetails th {
+    background: #343a40;
+    color: white;
+    padding: 12px;
+}
+
+#userDetails td {
+    padding: 10px;
+    border-bottom: 1px solid #dee2e6;
+}
+
+/* Questions Modal */
+#questionsModal .modal-body > div {
+    margin-bottom: 20px;
+}
+
+#questionsModal label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+#questionsModal input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ced4da;
+}
+
+.text-danger {
+    color: #dc3545;
+}
+
+/* Button Consistency */
+button[data-dismiss="modal"] {
+    background: #dc3545;
+    color: white;
+    padding: 8px 15px;
+}
+
+.modal-header h4 {
+    font-size: 20px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+/* Professional User Table Styling */
+body {
+    background: #f4f6f8;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+.user-management-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    padding: 32px 40px 40px 40px;
+}
+.user-management-container h2 {
+    text-align: center;
+    margin-bottom: 32px;
+    color: #222;
+    font-weight: 600;
+}
+.insert-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 32px;
+    justify-content: center;
+}
+.insert-form input,
+.insert-form select {
+    padding: 10px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 15px;
+    background: #f9fafb;
+    transition: border 0.2s;
+}
+.insert-form input:focus,
+.insert-form select:focus {
+    border-color: #007bff;
+    outline: none;
+}
+.insert-btn {
+    background: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 24px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.insert-btn:hover {
+    background: #0056b3;
+}
+.user-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.user-table th, .user-table td {
+    padding: 12px 10px;
+    text-align: center;
+    border-bottom: 1px solid #e5e7eb;
+}
+.user-table th {
+    background: #f1f5f9;
+    color: #333;
+    font-weight: 500;
+}
+.user-table tr:last-child td {
+    border-bottom: none;
+}
+.delete-btn {
+    background: #e53e3e;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 7px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.delete-btn:hover {
+    background: #b91c1c;
+}
+@media (max-width: 900px) {
+    .user-management-container {
+        padding: 16px 4px;
+    }
+    .insert-form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .user-table th, .user-table td {
+        padding: 8px 4px;
+    }
+}
+.user-table th, .user-table td {
+    padding: 14px 12px;
+    text-align: left;
+}
+.user-table th {
+    background: #2d6cdf;
+    color: #fff;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid #1b4fa0;
+}
+.user-table tr {
+    transition: background 0.2s;
+}
+.user-table tr:nth-child(even) {
+    background: #eef3fa;
+}
+.user-table tr:hover {
+    background: #dbeafe;
+}
+.user-table td {
+    color: #333;
+    border-bottom: 1px solid #e3e3e3;
+}
+@media (max-width: 900px) {
+    .user-table-container {
+        padding: 12px 2px;
+    }
+    .user-table th, .user-table td {
+        padding: 8px 4px;
+        font-size: 0.95rem;
+    }
+}
+.action-bar {
+    margin-top: 24px;
+    text-align: center;
+}
+.action-btn {
+    background: linear-gradient(90deg, #2d3e50 0%, #4b79a1 100%);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 12px 28px;
+    margin: 0 12px;
+    font-size: 1.08em;
+    cursor: pointer;
+    transition: background 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 8px rgba(44,62,80,0.08);
+}
+.action-btn:hover {
+    background: #4b79a1;
+}
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.3);
+}
+.modal-content {
+    background-color: #fff;
+    margin: 7% auto;
+    padding: 32px 28px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 4px 24px rgba(44,62,80,0.12);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: auto;
+}
+.close:hover {
+    color: #333;
+}
+.modal-content input, .modal-content button {
+    padding: 10px;
+    font-size: 1em;
+    border-radius: 5px;
+    border: 1px solid #e0e0e0;
+    margin-bottom: 8px;
+}
+.modal-content button {
+    background: linear-gradient(90deg, #2d3e50 0%, #4b79a1 100%);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    margin-top: 8px;
+}
+.modal-content button:hover {
+    background: #4b79a1;
+}
+.user-headline {
+    text-align: center;
+    color: #2d6cdf;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 24px;
+    letter-spacing: 1px;
+}
+@media print {
+    .action-bar, .modal, footer {
+        display: none !important;
+    }
+    .user-table-container {
+        width: 100% !important;
+        margin: 0 !important;
+    }
+    table {
+        border-collapse: collapse;
+        width: 100% !important;
+    }
+    th, td {
+        border: 1px solid #000;
+        padding: 8px;
+    }
+}
